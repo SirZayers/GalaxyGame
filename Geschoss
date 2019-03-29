@@ -1,0 +1,44 @@
+public class Geschoss implements GeschossInterface{
+	private int PosX;
+	private int PosY;
+	private int SizeX;
+	private int SizeY;
+	private int Speed;
+	
+	
+	public Geschoss(int x; int y; int sx; int sy; int s){
+		PosX = x;
+		PosY = y;
+		SizeX = sx;
+		SizeY = sy;
+		Speed = s;
+	}
+	
+	public int getPosX(){
+		return PosX;
+	}
+	
+	public int getPosY(){
+		return PosY;
+	}
+	
+	public int getSizeX(){
+		return SizeX;
+	}
+	
+	public int getSizeY(){
+		return SizeY;
+	}
+	
+	public int getSpeed(){
+		return Speed;
+	}
+	
+	public void setSpeed(int s){
+		Speed = s;
+	}
+	
+	public void move(){ //Bewegt das Geschoss in Y Richtung
+		PosY = PosY + Speed;
+	}
+}
