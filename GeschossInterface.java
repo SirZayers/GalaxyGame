@@ -1,5 +1,5 @@
 
-public interface Geschoss {
+public interface GeschossInterface {
 	
 	getPosX();
 	getPosY();
