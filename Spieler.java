@@ -3,12 +3,12 @@ public class Spieler {
 	private ArrayList<Beobachter> beobachter;
 	private int x;
 	private int y;
-	private int long;
+	private int longe;
 	
 	public Spieler() {
 		beobachter=new ArrayList<Beobachter>();
 		y=50;
-		long=32;
+		longe=32;
 		
 	}
 	
@@ -35,6 +35,6 @@ public class Spieler {
 	public void xGive()
 	{ return x;
 	}
-	public void longGive()
-	{return long;}
+	public void longeGive()
+	{return longe;}
 }
