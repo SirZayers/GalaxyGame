@@ -28,4 +28,13 @@ public class Spieler {
             b.geändert();
         }
 	}
+	public void yGive()
+	{
+		return y;
+	}
+	public void xGive()
+	{ return x;
+	}
+	public void longGive()
+	{return long;}
 }
