@@ -1,4 +1,4 @@
-public class Geschoss implements GeschossInterface{
+public class Geschoss1 implements Geschoss{
 	private int PosX;
 	private int PosY;
 	private int SizeX;
@@ -6,12 +6,20 @@ public class Geschoss implements GeschossInterface{
 	private int Speed;
 	
 	
-	public Geschoss(int x; int y; int sx; int sy; int s){
-		PosX = x;
-		PosY = y;
-		SizeX = sx;
-		SizeY = sy;
-		Speed = s;
+	public class Geschoss1 implements Geschoss{
+	private int PosX;
+	private int PosY;
+	private int SizeX;
+	private int SizeY;
+	private int Speed;
+	
+	
+	public Geschoss1(int x, int y, int sx, int sy, int s){
+		int PosX = x;
+		int PosY = y;
+		int SizeX = sx;
+		int SizeY = sy;
+		int Speed = s;
 	}
 	
 	public int getPosX(){
