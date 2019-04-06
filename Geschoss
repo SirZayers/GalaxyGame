@@ -1,0 +1,11 @@
+
+public interface Geschoss{
+	
+	int getPosX();
+	int getPosY();
+	int getSizeX();
+	void setSpeed(int s);
+	int getSpeed();
+	void move();
+
+}
