@@ -8,7 +8,7 @@ public class Gegner2 implements Gegner{
     private boolean shoot;
     private Random rand;
     
-    public Gegner2(int x, int y, int bf, int c) {
+    public Gegner2(int x, int y, int bf, int mf) {
         rand = new Random();
         shoot = false;
         posX = x;
@@ -16,8 +16,9 @@ public class Gegner2 implements Gegner{
         lenght = 64;
         speedX = 0;
         speedY = -5;
-        maxCount = c;
-        mCounter = c;
+        if(mf != 0){maxCount = mf;}
+        else{maxCount = rand.nextInt(250) + 50;}
+        mCounter = maxCount;
         state = 0;
         if(bf != 0){bulletFreq = bf;}
         else{bulletFreq = rand.nextInt(285) + 16;}
@@ -64,6 +65,7 @@ public class Gegner2 implements Gegner{
         else{setShoot(false);
             bCounter--;}
         if(mCounter == 0){
+            mCounter = maxCount;
             if(state == 0){
                 state = 1;
                 speedX = 5;
