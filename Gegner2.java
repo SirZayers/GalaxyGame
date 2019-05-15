@@ -15,14 +15,15 @@ public class Gegner2 implements Gegner{
         posY = y;
         lenght = 64;
         speedX = 0;
-        speedY = -5;
+        speedY = 5;
         if(mf != 0){maxCount = mf;}
-        else{maxCount = rand.nextInt(250) + 50;}
+        else{maxCount = rand.nextInt(150) + 50;}
         mCounter = maxCount;
-        state = 0;
+        state = 1;
         if(bf != 0){bulletFreq = bf;}
         else{bulletFreq = rand.nextInt(285) + 16;}
         bCounter = bulletFreq;
+        key = 1;
     }
     
     public void anmelden(Beobachter b){
@@ -59,11 +60,19 @@ public class Gegner2 implements Gegner{
         }
     }
     
+    public int getKey(){
+        return key;
+    }
+    
+    public void stopMove(){
+        speedY = 0;
+        speedX = 0;
+    }
+    
     public void move(){
         if(bCounter == 0){setShoot(true);
             bCounter = bulletFreq;}
-        else{setShoot(false);
-            bCounter--;}
+        else{bCounter--;}
         if(mCounter == 0){
             mCounter = maxCount;
             if(state == 0){
@@ -74,7 +83,7 @@ public class Gegner2 implements Gegner{
             else if(state == 1){
                 state = 2;
                 speedX = 0;
-                speedY = -5;
+                speedY = 5;
             }
             else if(state == 2){
                 state = 3;
@@ -84,15 +93,15 @@ public class Gegner2 implements Gegner{
             else{
                 state = 0;
                 speedX = 0;
-                speedY = -5;
+                speedY = 5;
             }
         }
         else{
             posX = posX + speedX;
-            if(posX < 0){posX = 950 + posX;}
-            if(posX > 950){posX = posX - 950;}
+            if(posX < 0){posX = 1024 + posX;}
+            if(posX > 1024){posX = posX - 1024;}
             posY = posY + speedY;
-            if(posY < 0){posY = 850 + posY;}
+            if(posY > 1024){posY = -64;}
             mCounter--;
         }
     }

@@ -1,4 +1,3 @@
-
-public interface Beobachter {
-	void ge‰ndert();
+public interface Beobachter{
+    void ge√§ndert();
 }
