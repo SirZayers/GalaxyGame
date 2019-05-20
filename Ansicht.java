@@ -97,11 +97,12 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
                 g.drawImage(explosion3, xHit, yHit, 64, 64, this);
             }
         }
+        
         for(int i=0;i<geschoss.size();i++){
             if(geschoss.get(i).getKey()==0){
-                geschossImages.add(zeugs.getImage("geschoss.png"));
+                geschossImages.add(i, zeugs.getImage("Blaues_Geschoss.png"));
             }else if(geschoss.get(i).getKey()==1){
-                geschossImages.add(zeugs.getImage("geschoss.png"));
+                geschossImages.add(i, zeugs.getImage("Rotes_Geschoss.png"));
             }
         }
         for(int i=0;i<geschoss.size();i++){
