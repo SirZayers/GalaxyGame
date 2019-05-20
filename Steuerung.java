@@ -88,13 +88,18 @@ public class Steuerung implements KeyListener{
                     }
                     if(maxGegner==gegnerNumber){
                         shouldGegnerSpawn = false;
-                    
+                        if(gegner.size()==0){
+                            maxGegner=maxGegner+2;
+                            shouldGegnerSpawn=true;
+                            gegnerNumber=0;
+                        }
                     }
                     if(shouldGegnerSpawn){
                         addGegner(new Gegner2(x, y, 30, 45)); //hier wird der neue Gegner mit den oben zufällig bestimmten x- und y-Werten und der festgelegten bf und mf erzeugt.
+                        gegnerNumber++;
                     }
                     
-                    gegnerNumber++;
+                    
                     currentTime= (int) System.currentTimeMillis();
                 }
             }, 0, periodeGegnerSpawn);//die Variable wird hier als Periode eingesetzt -> der Timer feuert nach dieser Zeit, die jedes Mal neu bestimmt wird (siehe oben)
@@ -134,7 +139,7 @@ public class Steuerung implements KeyListener{
 
     public void keyReleased(KeyEvent e){
         if(e.getKeyCode()==KeyEvent.VK_SPACE){
-            geschoss.add(new Geschoss1(spieler.getX()+30, spieler.getY(), 5));
+            geschoss.add(new Geschoss(spieler.getX()+30, spieler.getY(), 5, 0));
         }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
             rightPressed=false;
         }else if(e.getKeyCode()==KeyEvent.VK_LEFT){
@@ -246,8 +251,8 @@ public class Steuerung implements KeyListener{
                                         }
                                     }
                                 }, 210, 150);
-                            for(Gegner ge: gegner){
-                                ge.stopMove();
+                            for(int k=0;k<gegner.size();k++){
+                                gegner.get(k).stopMove();
                             }
                             geschoss.get(i).setX(-50);
                             geschoss.get(i).setY(-50);
@@ -265,7 +270,7 @@ public class Steuerung implements KeyListener{
 
     public void shoot(Gegner ge){
         if(ge.getKey()==1){
-            geschoss.add(new Geschoss2(ge.getX()+30, ge.getY()+64, 5));
+            geschoss.add(new Geschoss(ge.getX()+30, ge.getY()+64, -5, 1));
             ge.setShoot(false);
         }
 
