@@ -13,7 +13,10 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
     private int kills, health;
     private int backgroundMoving;
     private int blackBackground;
-    public Ansicht(Spieler q, ArrayList<Gegner> g, ArrayList<Geschoss> ges){
+     private Rettungsschiff rettungsschiff;
+     private int timeSOS;
+    public Ansicht(Spieler q, ArrayList<Gegner> g, ArrayList<Geschoss> ges,  Rettungsschiff r){
+          rettungsschiff=r;
         gegnerImages=new ArrayList<Image>();
         geschossImages=new ArrayList<Image>();
         spieler=q;
@@ -58,7 +61,7 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         for(int i=0;i<gegner.size();i++){
             g.drawImage(gegnerImages.get(i),gegner.get(i).getX(), gegner.get(i).getY(), 64, 64, this);
         }
-        
+  g.fillRect(1024, 0, 256, 1024);
         try{
             Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("JURASSIC.TTF"));
             font=font.deriveFont(16F);
@@ -97,7 +100,15 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
                 g.drawImage(explosion3, xHit, yHit, 64, 64, this);
             }
         }
-        
+        Image rettungsSchiff=zeugs.getImage("Sos-Schiff.png");
+        Image rettungsSchiff2=zeugs.getImage("Sos-Schiff2.png");
+        if(timeSOS==0){
+            g.drawImage(rettungsSchiff, rettungsschiff.getX(), rettungsschiff.getY(), 64, 64, this);
+            timeSOS=1;
+        }else{
+            g.drawImage(rettungsSchiff2, rettungsschiff.getX(),rettungsschiff.getY(), 64, 64, this);
+            timeSOS=0;
+        }
         for(int i=0;i<geschoss.size();i++){
             if(geschoss.get(i).getKey()==0){
                 geschossImages.add(i, zeugs.getImage("Blaues_Geschoss.png"));
@@ -221,6 +232,9 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         health--;
     }
     
+    public void increaseHealth(){
+      if(health<3){  health++;}
+    }
     public void setBlackBackground(int b){
         blackBackground=b;
     }

@@ -24,11 +24,17 @@ public class Steuerung implements KeyListener{
     private int waveCounter;
     private boolean shouldGegnerSpawn;
     private int maxGegner;
+    private Rettungsschiff sos;
     public Steuerung(){
         gegner=new ArrayList<Gegner>();
         geschoss=new ArrayList<Geschoss>();
         spieler=new Spieler(5);
-        ansicht=new Ansicht(spieler, gegner, geschoss);
+        
+          sos=new Rettungsschiff(0,0,30,45);
+        ansicht=new Ansicht(spieler, gegner, geschoss, sos);
+        fenster=new JFrame();
+        Image img=Toolkit.getDefaultToolkit().createImage("icon.png");
+        fenster.setIconImage(img);
         fenster=new JFrame();
         Toolkit tool=ansicht.getToolkit();
         int width= (int) Math.round( (tool.getScreenSize().height*1.25) * 100 ) /100;
@@ -118,6 +124,7 @@ public class Steuerung implements KeyListener{
                     for(int i=0;i<geschoss.size();i++){
                         geschoss.get(i).move();
                     }
+                     sos.move();
                     if(leftPressed){
                         spieler.goLeft();
                     }else if(rightPressed){
@@ -163,6 +170,41 @@ public class Steuerung implements KeyListener{
         for(int i=0;i<geschoss.size();i++){
             if(geschoss.get(i).getKey()==0){
                 for(int z=0;z<gegner.size();z++){
+                    if(geschoss.get(i).getX()>=sos.getX() &&geschoss.get(i).getX()<=sos.getX()+64 && geschoss.get(i).getY()<=sos.getY()+64 && geschoss.get(i).getY()>=sos.getY())
+                {
+                    sos.stopMove();
+                    int xk=sos.getX();
+                    int yk=sos.getY();
+                    Timer t1=new Timer();
+                    ansicht.setHit(true, sos.getX(), sos.getY(), 1, false);
+                    t1.schedule(new TimerTask(){
+                            public void run(){
+                                ansicht.setHit(true, xk, yk, 2, false);
+                            }
+                        }, 70);
+                    playSound("explosionSound.wav");
+                    Timer t2=new Timer();
+                    t2.schedule(new TimerTask(){
+                            public void run(){
+                                ansicht.setHit(true, xk, yk, 3, false);
+                            } 
+                        }, 140);
+                    Timer t3=new Timer();
+                    t3.schedule(new TimerTask(){
+                            public void run(){
+                                ansicht.setHit(false, -100, -100, 0, false);
+                            }
+                        }, 210);
+                    t1.purge();
+                    t2.purge();
+                    t3.purge();
+                    sos.setX(-200);
+                    sos.setY(-200);
+                    geschoss.get(i).setX(-50);
+                    geschoss.get(i).setY(-50);
+                    ansicht.increaseHealth();
+
+                }
                     if(geschoss.get(i).getX()>=gegner.get(z).getX() &&geschoss.get(i).getX()<=gegner.get(z).getX()+64 && geschoss.get(i).getY()<=gegner.get(z).getY()+64 && geschoss.get(i).getY()>=gegner.get(z).getY()){
 
                         int xk=gegner.get(z).getX();
@@ -202,6 +244,8 @@ public class Steuerung implements KeyListener{
                     }
                 }
             }else if(geschoss.get(i).getKey()>0){
+                 
+            
                 if(geschoss.get(i).getX()>=spieler.getX() && geschoss.get(i).getX()<=spieler.getX()+64 && geschoss.get(i).getY()>=spieler.getY() && geschoss.get(i).getY()<=spieler.getY()+64){
                     if(geschoss.get(i).getKey()!=0){
                         if(hitsSpieler<2){
@@ -270,7 +314,7 @@ public class Steuerung implements KeyListener{
 
     public void shoot(Gegner ge){
         if(ge.getKey()==1){
-            geschoss.add(new Geschoss(ge.getX()+30, ge.getY()+64, -5, 1));
+            geschoss.add(new Geschoss(ge.getX()+30, ge.getY()+64, -6, 1));
             ge.setShoot(false);
         }
 

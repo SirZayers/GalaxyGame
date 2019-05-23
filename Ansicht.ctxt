@@ -1,6 +1,6 @@
 #BlueJ class context
-comment0.params=q\ g\ ges
-comment0.target=Ansicht(Spieler,\ java.util.ArrayList,\ java.util.ArrayList)
+comment0.params=q\ g\ ges\ r
+comment0.target=Ansicht(Spieler,\ java.util.ArrayList,\ java.util.ArrayList,\ Rettungsschiff)
 comment1.params=g
 comment1.target=void\ paint(java.awt.Graphics)
 comment2.params=b\ x\ y\ c\ s
@@ -11,8 +11,10 @@ comment4.params=
 comment4.target=void\ increaseKills()
 comment5.params=
 comment5.target=void\ decreaseHealth()
-comment6.params=b
-comment6.target=void\ setBlackBackground(int)
-comment7.params=
-comment7.target=void\ setNewGame()
-numComments=8
+comment6.params=
+comment6.target=void\ increaseHealth()
+comment7.params=b
+comment7.target=void\ setBlackBackground(int)
+comment8.params=
+comment8.target=void\ setNewGame()
+numComments=9
