@@ -3,18 +3,17 @@ import java.util.*;
 
 public class  Rettungsschiff {
     
-    private int speedX, speedY, posX, posY, lenght, bulletFreq, maxCount, mCounter, bCounter, state;
+    private int speedX, speedY, posX, posY, length, bulletFreq, maxCount, mCounter, bCounter, state;
     private ArrayList<Beobachter> beobachter;
     private int key;
     private boolean shoot;
     private Random rand;
     
-    public Rettungsschiff(int x, int y, int bf, int mf) {
+    public Rettungsschiff(int x, int y, int bf, int mf, int l) {
         rand = new Random();
         shoot = false;
         posX = x;
         posY = y;
-        lenght = 64;
         speedX = 0;
         speedY = 5;
         if(mf != 0){maxCount = mf;}
@@ -25,6 +24,11 @@ public class  Rettungsschiff {
         else{bulletFreq = rand.nextInt(285) + 16;}
         bCounter = bulletFreq;
         key = 0;
+        length=l;
+    }
+    
+    public int getLength(){
+        return length;
     }
     
     public void anmelden(Beobachter b){

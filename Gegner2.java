@@ -2,18 +2,18 @@ import java.util.*;
 
 public class Gegner2 implements Gegner{
     
-    private int speedX, speedY, posX, posY, lenght, bulletFreq, maxCount, mCounter, bCounter, state;
+    private int speedX, speedY, posX, posY, length, bulletFreq, maxCount, mCounter, bCounter, state;
     private ArrayList<Beobachter> beobachter;
     private int key;
     private boolean shoot;
     private Random rand;
     
-    public Gegner2(int x, int y, int bf, int mf) {
+    public Gegner2(int x, int y, int bf, int mf, int l) {
         rand = new Random();
         shoot = false;
         posX = x;
         posY = y;
-        lenght = 64;
+        length = l;
         speedX = 0;
         speedY = 5;
         if(mf != 0){maxCount = mf;}
@@ -62,6 +62,10 @@ public class Gegner2 implements Gegner{
     
     public int getKey(){
         return key;
+    }
+    
+    public int getLength(){
+        return length;
     }
     
     public void stopMove(){

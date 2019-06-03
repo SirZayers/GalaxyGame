@@ -15,10 +15,12 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
     private int blackBackground;
      private Rettungsschiff rettungsschiff;
      private int timeSOS;
+     private int screenHeight, screenWidth;
     public Ansicht(Spieler q, ArrayList<Gegner> g, ArrayList<Geschoss> ges,  Rettungsschiff r){
           rettungsschiff=r;
         gegnerImages=new ArrayList<Image>();
         geschossImages=new ArrayList<Image>();
+        Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
         spieler=q;
         gegner=g;
         geschoss=ges;

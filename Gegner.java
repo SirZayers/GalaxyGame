@@ -21,4 +21,5 @@ public interface Gegner {
   void move();
   
   void stopMove();
+  int getLength();
 }

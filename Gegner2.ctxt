@@ -1,12 +1,14 @@
 #BlueJ class context
-comment0.params=x\ y\ bf\ mf
-comment0.target=Gegner2(int,\ int,\ int,\ int)
+comment0.params=x\ y\ bf\ mf\ l
+comment0.target=Gegner2(int,\ int,\ int,\ int,\ int)
 comment1.params=b
 comment1.target=void\ anmelden(Beobachter)
 comment10.params=
-comment10.target=void\ stopMove()
+comment10.target=int\ getLength()
 comment11.params=
-comment11.target=void\ move()
+comment11.target=void\ stopMove()
+comment12.params=
+comment12.target=void\ move()
 comment2.params=
 comment2.target=int\ getSpeedX()
 comment3.params=
@@ -23,4 +25,4 @@ comment8.params=
 comment8.target=void\ alleInformieren()
 comment9.params=
 comment9.target=int\ getKey()
-numComments=12
+numComments=13

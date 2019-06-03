@@ -25,12 +25,15 @@ public class Steuerung implements KeyListener{
     private boolean shouldGegnerSpawn;
     private int maxGegner;
     private Rettungsschiff sos;
+    private int screenHeight, screenWidth;
     public Steuerung(){
         gegner=new ArrayList<Gegner>();
         geschoss=new ArrayList<Geschoss>();
-        spieler=new Spieler(5);
-        
-          sos=new Rettungsschiff(0,0,30,45);
+        Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+        screenHeight=(int)screenSize.getHeight();
+        screenWidth=(int)screenSize.getWidth();
+          sos=new Rettungsschiff(0,0,30,45,(int) (screenHeight*0.0625));
+          spieler=new Spieler(5, (int) (screenHeight*0.0625));
         ansicht=new Ansicht(spieler, gegner, geschoss, sos);
         fenster=new JFrame();
         Image img=Toolkit.getDefaultToolkit().createImage("icon.png");
@@ -38,7 +41,7 @@ public class Steuerung implements KeyListener{
         fenster=new JFrame();
         Toolkit tool=ansicht.getToolkit();
         int width= (int) Math.round( (tool.getScreenSize().height*1.25) * 100 ) /100;
-        fenster.setSize(1280, 1024);
+        fenster.setSize((int)(screenHeight*1.25), screenHeight);
         fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenster.setVisible(true);
         fenster.add(ansicht);
@@ -71,8 +74,8 @@ public class Steuerung implements KeyListener{
         periodeGegnerSpawn=ThreadLocalRandom.current().nextInt(2000, 3000); //setzt die Periode, in der neue Gegner spawnen sollen, zufällig (hier alle 2-3 Sek)
         gegnerSpawn.schedule(new TimerTask(){
                 public void run(){//alles in diesem Block run() wird in der oben festgelegten Periode ausgeführt, damit ein neuer Gegner gespawnt wird
-                    int x=ThreadLocalRandom.current().nextInt(40, 800); //hier wird zufällig der x-Wert des Gegners festgelegt
-                    int y=-64; 
+                    int x=ThreadLocalRandom.current().nextInt((int)(screenHeight*0.039), (int)(screenHeight*0.78125)); //hier wird zufällig der x-Wert des Gegners festgelegt
+                    int y=-64;
                     /*
                      * Der nachfolgende Teil mit der time Variable ist mein Lösungsvorschlag dafür, dass mit der Zeit mehr Gegner spawnen sollen,
                      * ist dementsprechend unwichtig bzw. kann durch andere Wege ersetzt werden, ich habe ihn nur aufgenommen, weil das hier mein 
@@ -101,7 +104,7 @@ public class Steuerung implements KeyListener{
                         }
                     }
                     if(shouldGegnerSpawn){
-                        addGegner(new Gegner2(x, y, 30, 45)); //hier wird der neue Gegner mit den oben zufällig bestimmten x- und y-Werten und der festgelegten bf und mf erzeugt.
+                        addGegner(new Gegner2(x, y, 30, 45, (int)(screenHeight*0.0625))); //hier wird der neue Gegner mit den oben zufällig bestimmten x- und y-Werten und der festgelegten bf und mf erzeugt.
                         gegnerNumber++;
                     }
                     
@@ -146,7 +149,7 @@ public class Steuerung implements KeyListener{
 
     public void keyReleased(KeyEvent e){
         if(e.getKeyCode()==KeyEvent.VK_SPACE){
-            geschoss.add(new Geschoss(spieler.getX()+30, spieler.getY(), 5, 0));
+            geschoss.add(new Geschoss(spieler.getX()+(int)(screenWidth*0.02344), spieler.getY(), 5, 0));
         }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
             rightPressed=false;
         }else if(e.getKeyCode()==KeyEvent.VK_LEFT){
@@ -170,9 +173,13 @@ public class Steuerung implements KeyListener{
         for(int i=0;i<geschoss.size();i++){
             if(geschoss.get(i).getKey()==0){
                 for(int z=0;z<gegner.size();z++){
-                    if(geschoss.get(i).getX()>=sos.getX() &&geschoss.get(i).getX()<=sos.getX()+64 && geschoss.get(i).getY()<=sos.getY()+64 && geschoss.get(i).getY()>=sos.getY())
+                    if(geschoss.get(i).getX()>=sos.getX() &&geschoss.get(i).getX()<=sos.getX()+sos.getLength() && geschoss.get(i).getY()<=sos.getY()+sos.getLength() && geschoss.get(i).getY()>=sos.getY())
                 {
                     sos.stopMove();
+                    if(hitsSpieler>0){
+                        hitsSpieler--;
+                    }
+                    
                     int xk=sos.getX();
                     int yk=sos.getY();
                     Timer t1=new Timer();
@@ -205,7 +212,7 @@ public class Steuerung implements KeyListener{
                     ansicht.increaseHealth();
 
                 }
-                    if(geschoss.get(i).getX()>=gegner.get(z).getX() &&geschoss.get(i).getX()<=gegner.get(z).getX()+64 && geschoss.get(i).getY()<=gegner.get(z).getY()+64 && geschoss.get(i).getY()>=gegner.get(z).getY()){
+                    if(geschoss.get(i).getX()>=gegner.get(z).getX() &&geschoss.get(i).getX()<=gegner.get(z).getX()+gegner.get(z).getLength() && geschoss.get(i).getY()<=gegner.get(z).getY()+gegner.get(z).getLength() && geschoss.get(i).getY()>=gegner.get(z).getY()){
 
                         int xk=gegner.get(z).getX();
                         int yk=gegner.get(z).getY();
@@ -246,7 +253,7 @@ public class Steuerung implements KeyListener{
             }else if(geschoss.get(i).getKey()>0){
                  
             
-                if(geschoss.get(i).getX()>=spieler.getX() && geschoss.get(i).getX()<=spieler.getX()+64 && geschoss.get(i).getY()>=spieler.getY() && geschoss.get(i).getY()<=spieler.getY()+64){
+                if(geschoss.get(i).getX()>=spieler.getX() && geschoss.get(i).getX()<=spieler.getX()+spieler.getLength() && geschoss.get(i).getY()>=spieler.getY() && geschoss.get(i).getY()<=spieler.getY()+spieler.getLength()){
                     if(geschoss.get(i).getKey()!=0){
                         if(hitsSpieler<2){
                             hitsSpieler++;
@@ -314,7 +321,7 @@ public class Steuerung implements KeyListener{
 
     public void shoot(Gegner ge){
         if(ge.getKey()==1){
-            geschoss.add(new Geschoss(ge.getX()+30, ge.getY()+64, -6, 1));
+            geschoss.add(new Geschoss(ge.getX()+30, ge.getY()+ge.getLength(), -6, 1));
             ge.setShoot(false);
         }
 

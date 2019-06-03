@@ -3,14 +3,14 @@ public class Spieler {
     private ArrayList<Beobachter> beobachter;
     private int x;
     private int y;
-    private int longe;
+    private int length;
     private int speed;
 
-    public Spieler(int schnell) {
+    public Spieler(int schnell, int l) {
         beobachter=new ArrayList<Beobachter>();
         y=900;
         x=512;
-        longe=32;
+        length=l;
         speed=schnell;
 
     }
@@ -42,8 +42,8 @@ public class Spieler {
     { return x;
     }
 
-    public int getLonge()
-    {return longe;}
+    public int getLength()
+    {return length;}
 
     public void setX(int h)
     {x=h;}
