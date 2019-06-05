@@ -29,11 +29,11 @@ public class Steuerung implements KeyListener{
     public Steuerung(){
         gegner=new ArrayList<Gegner>();
         geschoss=new ArrayList<Geschoss>();
+        spieler=new Spieler(5, (int)(screenHeight*0.0625));
         Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
         screenHeight=(int)screenSize.getHeight();
         screenWidth=(int)screenSize.getWidth();
           sos=new Rettungsschiff(0,0,30,45,(int) (screenHeight*0.0625));
-          spieler=new Spieler(5, (int) (screenHeight*0.0625));
         ansicht=new Ansicht(spieler, gegner, geschoss, sos);
         fenster=new JFrame();
         Image img=Toolkit.getDefaultToolkit().createImage("icon.png");
@@ -171,15 +171,12 @@ public class Steuerung implements KeyListener{
 
     public void detectHitbox(){
         for(int i=0;i<geschoss.size();i++){
+            
             if(geschoss.get(i).getKey()==0){
                 for(int z=0;z<gegner.size();z++){
                     if(geschoss.get(i).getX()>=sos.getX() &&geschoss.get(i).getX()<=sos.getX()+sos.getLength() && geschoss.get(i).getY()<=sos.getY()+sos.getLength() && geschoss.get(i).getY()>=sos.getY())
                 {
                     sos.stopMove();
-                    if(hitsSpieler>0){
-                        hitsSpieler--;
-                    }
-                    
                     int xk=sos.getX();
                     int yk=sos.getY();
                     Timer t1=new Timer();
@@ -210,6 +207,7 @@ public class Steuerung implements KeyListener{
                     geschoss.get(i).setX(-50);
                     geschoss.get(i).setY(-50);
                     ansicht.increaseHealth();
+                    
 
                 }
                     if(geschoss.get(i).getX()>=gegner.get(z).getX() &&geschoss.get(i).getX()<=gegner.get(z).getX()+gegner.get(z).getLength() && geschoss.get(i).getY()<=gegner.get(z).getY()+gegner.get(z).getLength() && geschoss.get(i).getY()>=gegner.get(z).getY()){
@@ -314,6 +312,13 @@ public class Steuerung implements KeyListener{
                     }
 
                 }
+            }
+            if(geschoss.get(i).getY()>1024 || geschoss.get(i).getY()<0){
+                for(int k=i;k<geschoss.size()-1;k++){
+                    geschoss.set(k, geschoss.get(k+1));
+                }
+                geschoss.remove(geschoss.size()-1);
+                i--;
             }
 
         }
