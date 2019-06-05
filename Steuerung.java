@@ -29,11 +29,11 @@ public class Steuerung implements KeyListener{
     public Steuerung(){
         gegner=new ArrayList<Gegner>();
         geschoss=new ArrayList<Geschoss>();
-        spieler=new Spieler(5, (int)(screenHeight*0.0625));
         Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
         screenHeight=(int)screenSize.getHeight();
         screenWidth=(int)screenSize.getWidth();
-          sos=new Rettungsschiff(0,0,30,45,(int) (screenHeight*0.0625));
+        spieler=new Spieler(5, (int)(screenHeight*0.0625));
+        sos=new Rettungsschiff(0,0,30,45,(int) (screenHeight*0.0625));
         ansicht=new Ansicht(spieler, gegner, geschoss, sos);
         fenster=new JFrame();
         Image img=Toolkit.getDefaultToolkit().createImage("icon.png");
@@ -176,6 +176,9 @@ public class Steuerung implements KeyListener{
                 for(int z=0;z<gegner.size();z++){
                     if(geschoss.get(i).getX()>=sos.getX() &&geschoss.get(i).getX()<=sos.getX()+sos.getLength() && geschoss.get(i).getY()<=sos.getY()+sos.getLength() && geschoss.get(i).getY()>=sos.getY())
                 {
+                    if(hitsSpieler>0){
+                        hitsSpieler--;
+                    }
                     sos.stopMove();
                     int xk=sos.getX();
                     int yk=sos.getY();
