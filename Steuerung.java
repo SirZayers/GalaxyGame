@@ -14,7 +14,7 @@ public class Steuerung implements KeyListener{
     private JFrame fenster;
     private Ansicht ansicht;
     private Timer timer;
-    private boolean leftPressed, rightPressed, hit;
+    private boolean leftPressed, rightPressed, hit,beginn;
     private int hitsSpieler;
     private int periodeGegnerSpawn, currentTime;
     private Button newGame;
@@ -25,7 +25,8 @@ public class Steuerung implements KeyListener{
     private boolean shouldGegnerSpawn;
     private int maxGegner;
     private Rettungsschiff sos;
-    private int screenHeight, screenWidth;
+    private int screenHeight, screenWidth, start;
+
     public Steuerung(){
         gegner=new ArrayList<Gegner>();
         geschoss=new ArrayList<Geschoss>();
@@ -51,6 +52,8 @@ public class Steuerung implements KeyListener{
         newGame.addActionListener(actionlistener);
         timeStart=(int) System.currentTimeMillis();
         maxGegner = 10;
+        start=1;
+        beginn=true;
         shouldGegnerSpawn = true;
         try{
             Font font=Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("starvader.ttf"));
@@ -65,9 +68,6 @@ public class Steuerung implements KeyListener{
         fenster.addKeyListener(this);
         fenster.requestFocus();
         ansicht.repaint();
-
-        
-        
 
         //setzt einen Timer, der festlegt, wann neue Gegner spawnen sollen (nachfolgend genauer erklärt)
         Timer gegnerSpawn=new Timer();
@@ -107,13 +107,11 @@ public class Steuerung implements KeyListener{
                         addGegner(new Gegner2(x, y, 30, 45, (int)(screenHeight*0.0625))); //hier wird der neue Gegner mit den oben zufällig bestimmten x- und y-Werten und der festgelegten bf und mf erzeugt.
                         gegnerNumber++;
                     }
-                    
-                    
+
                     currentTime= (int) System.currentTimeMillis();
                 }
             }, 0, periodeGegnerSpawn);//die Variable wird hier als Periode eingesetzt -> der Timer feuert nach dieser Zeit, die jedes Mal neu bestimmt wird (siehe oben)
 
-            
         timer=new Timer();
         timer.schedule(new TimerTask(){
                 public void run(){
@@ -122,12 +120,12 @@ public class Steuerung implements KeyListener{
                         if(ge.getShoot()){
                             shoot(ge);
                         }
-                        
+
                     }
                     for(int i=0;i<geschoss.size();i++){
                         geschoss.get(i).move();
                     }
-                     sos.move();
+                    sos.move();
                     if(leftPressed){
                         spieler.goLeft();
                     }else if(rightPressed){
@@ -148,12 +146,28 @@ public class Steuerung implements KeyListener{
     }
 
     public void keyReleased(KeyEvent e){
-        if(e.getKeyCode()==KeyEvent.VK_SPACE){
-            geschoss.add(new Geschoss(spieler.getX()+(int)(screenWidth*0.02344), spieler.getY(), 5, 0));
-        }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-            rightPressed=false;
-        }else if(e.getKeyCode()==KeyEvent.VK_LEFT){
-            leftPressed=false;
+        if(beginn){
+            if(start==2){
+                if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                    beginn=false;
+                    setBeginn(false);
+
+                }
+            }
+
+        }else{
+            if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                geschoss.add(new Geschoss(spieler.getX()+(int)(screenWidth*0.02344), spieler.getY(), 5, 0));
+            }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+                if(start==1){
+                    start=2;
+                    setStart(2);
+                    ansicht.repaint();
+                }else {rightPressed=false;}
+
+            }else if(e.getKeyCode()==KeyEvent.VK_LEFT){
+                leftPressed=false;
+            }
         }
     }
 
@@ -171,48 +185,47 @@ public class Steuerung implements KeyListener{
 
     public void detectHitbox(){
         for(int i=0;i<geschoss.size();i++){
-            
+
             if(geschoss.get(i).getKey()==0){
                 for(int z=0;z<gegner.size();z++){
                     if(geschoss.get(i).getX()>=sos.getX() &&geschoss.get(i).getX()<=sos.getX()+sos.getLength() && geschoss.get(i).getY()<=sos.getY()+sos.getLength() && geschoss.get(i).getY()>=sos.getY())
-                {
-                    if(hitsSpieler>0){
-                        hitsSpieler--;
-                    }
-                    sos.stopMove();
-                    int xk=sos.getX();
-                    int yk=sos.getY();
-                    Timer t1=new Timer();
-                    ansicht.setHit(true, sos.getX(), sos.getY(), 1, false);
-                    t1.schedule(new TimerTask(){
-                            public void run(){
-                                ansicht.setHit(true, xk, yk, 2, false);
-                            }
-                        }, 70);
-                    playSound("explosionSound.wav");
-                    Timer t2=new Timer();
-                    t2.schedule(new TimerTask(){
-                            public void run(){
-                                ansicht.setHit(true, xk, yk, 3, false);
-                            } 
-                        }, 140);
-                    Timer t3=new Timer();
-                    t3.schedule(new TimerTask(){
-                            public void run(){
-                                ansicht.setHit(false, -100, -100, 0, false);
-                            }
-                        }, 210);
-                    t1.purge();
-                    t2.purge();
-                    t3.purge();
-                    sos.setX(-200);
-                    sos.setY(-200);
-                    geschoss.get(i).setX(-50);
-                    geschoss.get(i).setY(-50);
-                    ansicht.increaseHealth();
-                    
+                    {
+                        if(hitsSpieler>0){
+                            hitsSpieler--;
+                        }
+                        sos.stopMove();
+                        int xk=sos.getX();
+                        int yk=sos.getY();
+                        Timer t1=new Timer();
+                        ansicht.setHit(true, sos.getX(), sos.getY(), 1, false);
+                        t1.schedule(new TimerTask(){
+                                public void run(){
+                                    ansicht.setHit(true, xk, yk, 2, false);
+                                }
+                            }, 70);
+                        playSound("explosionSound.wav");
+                        Timer t2=new Timer();
+                        t2.schedule(new TimerTask(){
+                                public void run(){
+                                    ansicht.setHit(true, xk, yk, 3, false);
+                                } 
+                            }, 140);
+                        Timer t3=new Timer();
+                        t3.schedule(new TimerTask(){
+                                public void run(){
+                                    ansicht.setHit(false, -100, -100, 0, false);
+                                }
+                            }, 210);
+                        t1.purge();
+                        t2.purge();
+                        t3.purge();
+                        sos.setX(-200);
+                        sos.setY(-200);
+                        geschoss.get(i).setX(-50);
+                        geschoss.get(i).setY(-50);
+                        ansicht.increaseHealth();
 
-                }
+                    }
                     if(geschoss.get(i).getX()>=gegner.get(z).getX() &&geschoss.get(i).getX()<=gegner.get(z).getX()+gegner.get(z).getLength() && geschoss.get(i).getY()<=gegner.get(z).getY()+gegner.get(z).getLength() && geschoss.get(i).getY()>=gegner.get(z).getY()){
 
                         int xk=gegner.get(z).getX();
@@ -225,7 +238,7 @@ public class Steuerung implements KeyListener{
                                     ansicht.setHit(true, xk, yk, 2, false);
                                 }
                             }, 70);
-                            playSound("explosionSound.wav");
+                        playSound("explosionSound.wav");
                         Timer t2=new Timer();
                         t2.schedule(new TimerTask(){
                                 public void run(){
@@ -252,8 +265,7 @@ public class Steuerung implements KeyListener{
                     }
                 }
             }else if(geschoss.get(i).getKey()>0){
-                 
-            
+
                 if(geschoss.get(i).getX()>=spieler.getX() && geschoss.get(i).getX()<=spieler.getX()+spieler.getLength() && geschoss.get(i).getY()>=spieler.getY() && geschoss.get(i).getY()<=spieler.getY()+spieler.getLength()){
                     if(geschoss.get(i).getKey()!=0){
                         if(hitsSpieler<2){
@@ -275,7 +287,7 @@ public class Steuerung implements KeyListener{
                                         ansicht.setHit(true, xk, yk, 2, true);
                                     }
                                 }, 70);
-                            
+
                             spieler.setX(-200);
                             Timer t2=new Timer();
                             t2.schedule(new TimerTask(){
@@ -343,9 +355,9 @@ public class Steuerung implements KeyListener{
                     try {
                         Clip clip = AudioSystem.getClip();
                         AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                        Steuerung.class.getResourceAsStream(url));
+                                Steuerung.class.getResourceAsStream(url));
                         clip.open(inputStream);
-                        clip.start(); 
+                        clip.start();  
                     } catch (Exception e) {
                         System.err.println(e.getMessage());
                     }
@@ -353,6 +365,11 @@ public class Steuerung implements KeyListener{
             }).start();
     }
 
+    public void setStart(int h)
+    {ansicht.setStart(h);}
+
+    public void setBeginn(boolean b)
+    { ansicht.setBeginn(b);}
     private class Action implements ActionListener{
         public void actionPerformed(ActionEvent e){
             if(e.getSource()==newGame){

@@ -8,14 +8,16 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
     private ArrayList<Gegner> gegner;
     private ArrayList<Geschoss> geschoss;
     private ArrayList<Image> gegnerImages, geschossImages;
-    private boolean hit, spielerHit;
+    private boolean hit, spielerHit,beginn;
     private int xHit, yHit, counter;
     private int kills, health;
     private int backgroundMoving;
     private int blackBackground;
      private Rettungsschiff rettungsschiff;
-     private int timeSOS;
+     private int timeSOS,start;
      private int screenHeight, screenWidth;
+    
+   
     public Ansicht(Spieler q, ArrayList<Gegner> g, ArrayList<Geschoss> ges,  Rettungsschiff r){
           rettungsschiff=r;
         gegnerImages=new ArrayList<Image>();
@@ -36,11 +38,14 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         yHit=0;
         kills=0;
         health=3;
+        beginn=true;
+       start=1;
     }
 
     public void paint(Graphics g){
-
-        Toolkit zeugs=getToolkit();
+         Toolkit zeugs=getToolkit();
+if(beginn==false){
+       
         Image backgroundIMG=zeugs.getImage("background.png");
         Image backgroundIMG2=zeugs.getImage("background2.png");
         if(backgroundMoving<1024){
@@ -211,7 +216,16 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
             }
             g.drawString("GAME OVER", 150, 400);
         }
-        
+    }
+    else
+    {
+       Image starte=zeugs.getImage("start.png");
+        g.drawImage(starte,0,0,this);
+        Image play=zeugs.getImage("spiela.png");
+       
+        g.drawImage (play,200*start,800,this);
+  
+        }
     }
 
     public void setHit(boolean b, int x, int y, int c, boolean s){
@@ -240,6 +254,11 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
     public void setBlackBackground(int b){
         blackBackground=b;
     }
+    public void setBeginn(boolean h){
+    beginn=h;}
+    
+    public void setStart(int h)
+    {start=h;}
    
     public void setNewGame(){
         health=3;

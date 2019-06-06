@@ -15,7 +15,9 @@ public class Gegner1 implements Gegner{
         beobachter=new ArrayList<Beobachter>();
         key=0;
     }
-
+ public int getLength(){
+        return length;
+    }
     public void anmelden(Beobachter b){
         beobachter.add(b);
     }
