@@ -32,15 +32,14 @@ public class Steuerung implements KeyListener{
         Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
         screenHeight=(int)screenSize.getHeight();
         screenWidth=(int)screenSize.getWidth();
-        spieler=new Spieler(5, (int)(screenHeight*0.0625));
-        sos=new Rettungsschiff(0,0,30,45,(int) (screenHeight*0.0625));
+          sos=new Rettungsschiff(0,0,30,45,(int) (screenHeight*0.0625));
+          spieler=new Spieler(5, (int) (screenHeight*0.0625));
         ansicht=new Ansicht(spieler, gegner, geschoss, sos);
         fenster=new JFrame();
         Image img=Toolkit.getDefaultToolkit().createImage("icon.png");
         fenster.setIconImage(img);
         fenster=new JFrame();
         Toolkit tool=ansicht.getToolkit();
-        int width= (int) Math.round( (tool.getScreenSize().height*1.25) * 100 ) /100;
         fenster.setSize((int)(screenHeight*1.25), screenHeight);
         fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenster.setVisible(true);
@@ -149,7 +148,7 @@ public class Steuerung implements KeyListener{
 
     public void keyReleased(KeyEvent e){
         if(e.getKeyCode()==KeyEvent.VK_SPACE){
-            geschoss.add(new Geschoss(spieler.getX()+(int)(screenWidth*0.02344), spieler.getY(), 5, 0));
+            geschoss.add(new Geschoss(spieler.getX()+(int)(screenHeight/34.1333333), spieler.getY(),(int) (screenHeight/204.8), 0));
         }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
             rightPressed=false;
         }else if(e.getKeyCode()==KeyEvent.VK_LEFT){
@@ -171,15 +170,15 @@ public class Steuerung implements KeyListener{
 
     public void detectHitbox(){
         for(int i=0;i<geschoss.size();i++){
-            
             if(geschoss.get(i).getKey()==0){
                 for(int z=0;z<gegner.size();z++){
                     if(geschoss.get(i).getX()>=sos.getX() &&geschoss.get(i).getX()<=sos.getX()+sos.getLength() && geschoss.get(i).getY()<=sos.getY()+sos.getLength() && geschoss.get(i).getY()>=sos.getY())
                 {
+                    sos.stopMove();
                     if(hitsSpieler>0){
                         hitsSpieler--;
                     }
-                    sos.stopMove();
+                    
                     int xk=sos.getX();
                     int yk=sos.getY();
                     Timer t1=new Timer();
@@ -210,7 +209,6 @@ public class Steuerung implements KeyListener{
                     geschoss.get(i).setX(-50);
                     geschoss.get(i).setY(-50);
                     ansicht.increaseHealth();
-                    
 
                 }
                     if(geschoss.get(i).getX()>=gegner.get(z).getX() &&geschoss.get(i).getX()<=gegner.get(z).getX()+gegner.get(z).getLength() && geschoss.get(i).getY()<=gegner.get(z).getY()+gegner.get(z).getLength() && geschoss.get(i).getY()>=gegner.get(z).getY()){
@@ -316,20 +314,13 @@ public class Steuerung implements KeyListener{
 
                 }
             }
-            if(geschoss.get(i).getY()>1024 || geschoss.get(i).getY()<0){
-                for(int k=i;k<geschoss.size()-1;k++){
-                    geschoss.set(k, geschoss.get(k+1));
-                }
-                geschoss.remove(geschoss.size()-1);
-                i--;
-            }
 
         }
     }
 
     public void shoot(Gegner ge){
         if(ge.getKey()==1){
-            geschoss.add(new Geschoss(ge.getX()+30, ge.getY()+ge.getLength(), -6, 1));
+            geschoss.add(new Geschoss(ge.getX()+30, ge.getY()+ge.getLength(),(int) (-(screenHeight/170.666)), 1));
             ge.setShoot(false);
         }
 
