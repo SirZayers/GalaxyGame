@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import javax.swing.*;
 import java.io.*;
@@ -21,6 +20,7 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         gegnerImages=new ArrayList<Image>();
         geschossImages=new ArrayList<Image>();
         Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+        screenHeight=(int)screenSize.getHeight();
         spieler=q;
         gegner=g;
         geschoss=ges;
@@ -43,14 +43,14 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         Toolkit zeugs=getToolkit();
         Image backgroundIMG=zeugs.getImage("background.png");
         Image backgroundIMG2=zeugs.getImage("background2.png");
-        if(backgroundMoving<1024){
+        if(backgroundMoving<screenHeight){
             
-            g.drawImage(backgroundIMG, 0, backgroundMoving++, this);
-            g.drawImage(backgroundIMG2, 0, backgroundMoving-1024, this);
+            g.drawImage(backgroundIMG, 0, backgroundMoving++, screenHeight, screenHeight, this);
+            g.drawImage(backgroundIMG2, 0, backgroundMoving-screenHeight, screenHeight, screenHeight, this);
         }else{
             backgroundMoving=0;
             g.drawImage(backgroundIMG, 0, backgroundMoving++, this);
-            g.drawImage(backgroundIMG2, 0, backgroundMoving-1024, this);
+            g.drawImage(backgroundIMG2, 0, backgroundMoving-screenHeight, this);
         }
         for(int i=0;i<gegner.size();i++){
             if(gegner.get(i).getKey()==1){
@@ -59,11 +59,10 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         }
 
         Image spielerIMG=zeugs.getImage("spieler.png");
-        g.drawImage(spielerIMG,spieler.getX(), spieler.getY(), 64, 64, this);
+        g.drawImage(spielerIMG,spieler.getX(), spieler.getY(),(int) (screenHeight*0.0625),(int) (screenHeight*0.0625), this);
         for(int i=0;i<gegner.size();i++){
-            g.drawImage(gegnerImages.get(i),gegner.get(i).getX(), gegner.get(i).getY(), 64, 64, this);
+            g.drawImage(gegnerImages.get(i),gegner.get(i).getX(), gegner.get(i).getY(), screenHeight/(screenHeight/gegner.get(i).getLength()), screenHeight/(screenHeight/gegner.get(i).getLength()), this);
         }
-  g.fillRect(1024, 0, 256, 1024);
         try{
             Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("JURASSIC.TTF"));
             font=font.deriveFont(16F);
@@ -72,43 +71,41 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
             e.printStackTrace();
         }
         g.setColor(Color.RED);
-        g.drawString("Kills", 1030, 50);
-        g.drawString(""+kills, 1030, 70);
         if(hit){
             if(spielerHit){
                 Image explosion1=zeugs.getImage("explosion1.png");
                 Image explosion2=zeugs.getImage("explosion2.png");
                 Image explosion3=zeugs.getImage("explosion3.png");
                 if(counter==1){
-                    g.drawImage(explosion1, xHit, yHit, 64, 64, this);
+                    g.drawImage(explosion1, xHit, yHit,(int) (screenHeight*0.0625),(int) (screenHeight*0.0625), this);
                 }else if(counter==2){
                     explosion1.flush();
-                    g.drawImage(explosion2, xHit, yHit, 64, 64, this);
+                    g.drawImage(explosion2, xHit, yHit, (int) (screenHeight*0.0625), (int) (screenHeight*0.0625), this);
                 }else if(counter==3){
                     explosion2.flush();
-                    g.drawImage(explosion3, xHit, yHit, 64, 64, this);
+                    g.drawImage(explosion3, xHit, yHit, (int) (screenHeight*0.0625), (int) (screenHeight*0.0625), this);
                 }
             }
             Image explosion1=zeugs.getImage("explosion1.png");
             Image explosion2=zeugs.getImage("explosion2.png");
             Image explosion3=zeugs.getImage("explosion3.png");
             if(counter==1){
-                g.drawImage(explosion1, xHit, yHit, 64, 64, this);
+                g.drawImage(explosion1, xHit, yHit, (int) (screenHeight*0.0625), (int) (screenHeight*0.0625), this);
             }else if(counter==2){
                 explosion1.flush();
-                g.drawImage(explosion2, xHit, yHit, 64, 64, this);
+                g.drawImage(explosion2, xHit, yHit, (int) (screenHeight*0.0625), (int) (screenHeight*0.0625), this);
             }else if(counter==3){
                 explosion2.flush();
-                g.drawImage(explosion3, xHit, yHit, 64, 64, this);
+                g.drawImage(explosion3, xHit, yHit, (int) (screenHeight*0.0625), (int) (screenHeight*0.0625), this);
             }
         }
         Image rettungsSchiff=zeugs.getImage("Sos-Schiff.png");
         Image rettungsSchiff2=zeugs.getImage("Sos-Schiff2.png");
         if(timeSOS==0){
-            g.drawImage(rettungsSchiff, rettungsschiff.getX(), rettungsschiff.getY(), 64, 64, this);
+            g.drawImage(rettungsSchiff, rettungsschiff.getX(), rettungsschiff.getY(), (int) (screenHeight*0.0625), (int) (screenHeight*0.0625), this);
             timeSOS=1;
         }else{
-            g.drawImage(rettungsSchiff2, rettungsschiff.getX(),rettungsschiff.getY(), 64, 64, this);
+            g.drawImage(rettungsSchiff2, rettungsschiff.getX(),rettungsschiff.getY(), (int) (screenHeight*0.0625), (int) (screenHeight*0.0625), this);
             timeSOS=0;
         }
         for(int i=0;i<geschoss.size();i++){
@@ -119,15 +116,15 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
             }
         }
         for(int i=0;i<geschoss.size();i++){
-            g.drawImage(geschossImages.get(i),geschoss.get(i).getX(), geschoss.get(i).getY(), 4, 12, this);
+            g.drawImage(geschossImages.get(i),geschoss.get(i).getX(), geschoss.get(i).getY(), screenHeight/256, screenHeight/85, this);
         }
         g.setColor(Color.GRAY);
-        g.fillRect(1024, 0, 256, 1024);
+        g.fillRect(screenHeight, 0,(int) (screenHeight*0.25), screenHeight);
         g.setColor(Color.RED);
         Image planet=zeugs.getImage("planet.png");
-        g.drawImage(planet, 1115, 835, 100, 100, this);
+        g.drawImage(planet,(int) (screenHeight/0.91838565),(int) (screenHeight/1.226347),(int) (screenHeight/10.24),(int) (screenHeight/10.24), this);
         Image rakete=zeugs.getImage("rakete2.png");
-        g.drawImage(rakete, 995, 700, 280, 280, this);
+        g.drawImage(rakete,(int) (screenHeight/1.029146),(int) (screenHeight/1.462857),(int) (screenHeight/3.6571428), (int) (screenHeight/3.6571428), this);
         try{
             Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("STARVADER.TTF"));
             font=font.deriveFont(16F);
@@ -135,72 +132,72 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         }catch(Exception e){
             e.printStackTrace();
         }
-        g.drawString("LIFES", 1135, 870);
+        g.drawString("LIFES",(int) (screenHeight/0.9022026432),(int) (screenHeight/1.177011464));
         Image herz1=zeugs.getImage("herz.png");
         Image herz2=zeugs.getImage("herz.png");
         Image herz3=zeugs.getImage("herz.png");
         if(blackBackground==1){
             Image blackBG=zeugs.getImage("verdunklung1.png");
-            g.drawImage(blackBG, 0, 0, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
         }else if(blackBackground==2){
             Image blackBG=zeugs.getImage("verdunklung1.png");
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
         }else if(blackBackground==3){
             Image blackBG=zeugs.getImage("verdunklung1.png");
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
         }else if(blackBackground==4){
             Image blackBG=zeugs.getImage("verdunklung1.png");
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
         }else if(blackBackground==5){
             Image blackBG=zeugs.getImage("verdunklung1.png");
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
         }else if(blackBackground==6){
             Image blackBG=zeugs.getImage("verdunklung1.png");
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
         }else if(blackBackground==7){
             Image blackBG=zeugs.getImage("verdunklung1.png");
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+            g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
         }else if(blackBackground>=8){
             Image blackBG=zeugs.getImage("verdunklung1.png");
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
-            g.drawImage(blackBG, 0, 0, this);
+           g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+           g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+           g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+           g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+           g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+           g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+           g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
+           g.drawImage(blackBG, 0, 0, screenHeight, screenHeight, this);
         }
         if(health==3){
-            g.drawImage(herz1, 1130, 880, this);
-            g.drawImage(herz2, 1155, 880, this);
-            g.drawImage(herz3, 1180, 880, this);
+            g.drawImage(herz1, (int) (screenHeight/0.902203), (int) (screenHeight/1.163163), this);
+            g.drawImage(herz2, (int) (screenHeight/0.886580), (int) (screenHeight/1.163163), this);
+            g.drawImage(herz3, (int) (screenHeight/0.867797), (int) (screenHeight/1.163163), this);
         }else if(health==2){
-            g.drawImage(herz1, 1130, 880, this);
-            g.drawImage(herz2, 1155, 880, this);
+            g.drawImage(herz1, (int) (screenHeight/0.902203), (int) (screenHeight/1.163163), this);
+            g.drawImage(herz2, (int) (screenHeight/0.886580), (int) (screenHeight/1.163163), this);
         }else if(health==1){
-            g.drawImage(herz1, 1130, 880, this);
+            g.drawImage(herz1, (int) (screenHeight/0.902203), (int) (screenHeight/1.163163), this);
         }else{
             try{
                 Font bigFont=Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("JURASSIC.TTF"));
