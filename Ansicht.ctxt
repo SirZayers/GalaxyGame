@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Ansicht
-comment1.params=q\ g\ ges\ r
-comment1.target=Ansicht(Spieler,\ java.util.ArrayList,\ java.util.ArrayList,\ Rettungsschiff)
+comment1.params=q\ g\ ges\ r\ s
+comment1.target=Ansicht(Spieler,\ java.util.ArrayList,\ java.util.ArrayList,\ Rettungsschiff,\ int)
 comment10.params=b
 comment10.target=void\ setBlackBackground(int)
 comment11.params=

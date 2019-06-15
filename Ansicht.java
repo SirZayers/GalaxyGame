@@ -15,7 +15,7 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
     private Rettungsschiff rettungsschiff;
     private int timeSOS,start,bg;
     private int screenHeight, screenWidth;
-    public Ansicht(Spieler q, ArrayList<Gegner> g, ArrayList<Geschoss> ges,  Rettungsschiff r){
+    public Ansicht(Spieler q, ArrayList<Gegner> g, ArrayList<Geschoss> ges,  Rettungsschiff r,int s){
         rettungsschiff=r;
         gegnerImages=new ArrayList<Image>();
         geschossImages=new ArrayList<Image>();
@@ -23,6 +23,7 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         screenHeight=(int)screenSize.getHeight();
         spieler=q;
         gegner=g;
+        start=s;
         geschoss=ges;
         spieler.anmelden(this);
         for(Gegner ge: gegner){
@@ -36,7 +37,6 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         yHit=0;
         kills=0;
         health=3;
-        
     }
 
     public void paint(Graphics g){
@@ -212,8 +212,8 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
                 g.drawString("GAME OVER", 150, 400);
             }
         }
-        else{
-            Image sat=zeugs.getImage("start.png");
+        else
+        {Image sat=zeugs.getImage("start.png");
             g.drawImage(sat, 0, 0,(int) (screenHeight*1.25), screenHeight, this);
             Image sap=zeugs.getImage("spieler.png");
             if (bg==0)
