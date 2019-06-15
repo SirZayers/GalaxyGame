@@ -15,7 +15,7 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
     private Rettungsschiff rettungsschiff;
     private int timeSOS,start,bg;
     private int screenHeight, screenWidth;
-    public Ansicht(Spieler q, ArrayList<Gegner> g, ArrayList<Geschoss> ges,  Rettungsschiff r,int s){
+    public Ansicht(Spieler q, ArrayList<Gegner> g, ArrayList<Geschoss> ges,  Rettungsschiff r){
         rettungsschiff=r;
         gegnerImages=new ArrayList<Image>();
         geschossImages=new ArrayList<Image>();
@@ -23,7 +23,6 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         screenHeight=(int)screenSize.getHeight();
         spieler=q;
         gegner=g;
-        start=s;
         geschoss=ges;
         spieler.anmelden(this);
         for(Gegner ge: gegner){
@@ -37,12 +36,13 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         yHit=0;
         kills=0;
         health=3;
+        
     }
 
     public void paint(Graphics g){
 
         Toolkit zeugs=getToolkit();
-        if (start==2)
+        if (start==1)
         {
             Image backgroundIMG=zeugs.getImage("background.png");
             Image backgroundIMG2=zeugs.getImage("background2.png");
@@ -212,9 +212,9 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
                 g.drawString("GAME OVER", 150, 400);
             }
         }
-        else
-        {Image sat=zeugs.getImage("start.png");
-            g.drawImage(sat, 0, 0, 700, 500, this);
+        else{
+            Image sat=zeugs.getImage("start.png");
+            g.drawImage(sat, 0, 0,(int) (screenHeight*1.25), screenHeight, this);
             Image sap=zeugs.getImage("spieler.png");
             if (bg==0)
             {g.drawImage(sap, 150, 400, 60, 60, this);}
@@ -234,8 +234,13 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         spielerHit=s;
     }
 
-    public void setbg(int h)
-    {bg=h;}
+    public void setbg(int h){
+        bg=h;
+    }
+    
+    public void setStart(int s){
+        start=s;
+    }
 
     public void geändert(){
         repaint();
