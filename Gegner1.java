@@ -15,7 +15,9 @@ public class Gegner1 implements Gegner{
         beobachter=new ArrayList<Beobachter>();
         key=0;
     }
-
+public int getLength()
+{int a=0;
+return a;}// random shit
     public void anmelden(Beobachter b){
         beobachter.add(b);
     }

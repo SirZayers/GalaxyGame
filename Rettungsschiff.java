@@ -1,8 +1,7 @@
 
 import java.util.*;
 
-public class  Rettungsschiff {
-    
+public class  Rettungsschiff{     
     private int speedX, speedY, posX, posY, length, bulletFreq, maxCount, mCounter, bCounter, state;
     private ArrayList<Beobachter> beobachter;
     private int key;
