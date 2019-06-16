@@ -268,7 +268,7 @@ private static String ladeDatei(String datName) {
             else{g.drawImage(sap, (int) (screenHeight*0.9), (int) (screenHeight*0.7), (int) (screenHeight*0.1),(int) (screenHeight*0.1), this);}
 
         }
-        else{
+        else if (start==2){
         Image sat=zeugs.getImage("score.png");
             g.drawImage(sat, 0, 0,(int) (screenHeight*1.25), screenHeight, this);
            try{
@@ -280,6 +280,10 @@ private static String ladeDatei(String datName) {
                 }
            g.setColor(Color.RED);
             g.drawString(reade(),(int) (screenHeight*0.5), (int) (screenHeight*0.57));
+        }
+        else{
+            Image sat=zeugs.getImage("Manual.png");
+            g.drawImage(sat, 0, 0,(int) (screenHeight*1.25), screenHeight, this);
         }
 
     }

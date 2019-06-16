@@ -192,6 +192,10 @@ public class Steuerung implements KeyListener{
                 {ansicht.setStart(2);
                     start=2;
                 }
+                else if(bg==2)
+                {ansicht.setStart(3);
+                    start=3;
+                }
             }
             ansicht.setbg(bg);
             ansicht.repaint();
@@ -320,6 +324,7 @@ public class Steuerung implements KeyListener{
                             Timer t1=new Timer();
                             ansicht.decreaseHealth();
                             spieler.stopMove();
+                            
 
                             ansicht.setHit(true, xk, yk, 1, true);
                             t1.schedule(new TimerTask(){
@@ -370,8 +375,8 @@ public class Steuerung implements KeyListener{
                             {
                             storage(d);
                         }
-                            score=0;
-                            ansicht.setScore(0);
+                        score=0;
+                        ansicht.setScore(0);
                         }
                     }
                 }
