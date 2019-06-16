@@ -370,6 +370,8 @@ public class Steuerung implements KeyListener{
                             {
                             storage(d);
                         }
+                            score=0;
+                            ansicht.setScore(0);
                         }
                     }
                 }
