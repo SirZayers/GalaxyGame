@@ -382,9 +382,19 @@ public class Steuerung implements KeyListener{
                     }
                 }
             }
+             if(geschoss.get(i).getY()>screenHeight || geschoss.get(i).getY()<0){
+                for(int k=i;k<geschoss.size()-1;k++){
+                    geschoss.set(k, geschoss.get(k+1));
+                }
+                geschoss.remove(geschoss.size()-1);
+                i--;
+            }
 
         }
     }
+
+        
+    
 
     public void setGegnerSpawn(){
         //setzt einen Timer, der festlegt, wann neue Gegner spawnen sollen (nachfolgend genauer erklärt)
