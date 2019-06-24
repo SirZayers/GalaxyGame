@@ -223,8 +223,15 @@ public class Steuerung implements KeyListener{
     }
 
     public void detectHitbox(){
-
+        for(int t=0;t<geschoss.size()-1;t++){
+            if(geschoss.get(t).getX()<0 || geschoss.get(t).getY()<0){
+                geschoss.set(t, geschoss.get(t+1));
+                geschoss.remove(geschoss.size()-1);
+            }
+            
+        }
         for(int i=0;i<geschoss.size();i++){
+            
             if(geschoss.get(i).getKey()==0){
                 for(int z=0;z<gegner.size();z++){
                     if(geschoss.get(i).getX()>=sos.getX() &&geschoss.get(i).getX()<=sos.getX()+sos.getLength() && geschoss.get(i).getY()<=sos.getY()+sos.getLength() && geschoss.get(i).getY()>=sos.getY())
