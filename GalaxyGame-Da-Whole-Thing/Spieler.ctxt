@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.params=schnell\ l\ z
+comment0.target=Spieler(int,\ int,\ int)
+comment1.params=b
+comment1.target=void\ anmelden(Beobachter)
+comment10.params=s
+comment10.target=void\ setSpeed(int)
+comment11.params=
+comment11.target=void\ stopMove()
+comment2.params=
+comment2.target=void\ goRight()
+comment3.params=
+comment3.target=void\ goLeft()
+comment4.params=
+comment4.target=void\ alleInformieren()
+comment5.params=
+comment5.target=int\ getY()
+comment6.params=
+comment6.target=int\ getX()
+comment7.params=
+comment7.target=int\ getLength()
+comment8.params=h
+comment8.target=void\ setX(int)
+comment9.params=
+comment9.target=int\ getSpeed()
+numComments=12
