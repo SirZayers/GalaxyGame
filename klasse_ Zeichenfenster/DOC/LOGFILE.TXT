@@ -1,0 +1,62 @@
+Class documentation
+<---- javadoc command: ---->
+C:\PROGRA~1\Java\JDK17~1.0_1\bin\javadoc.exe
+-author
+-version
+-nodeprecated
+-package
+-noindex
+-notree
+-nohelp
+-nonavbar
+-source
+1.7
+-classpath
+C:\Program Files (x86)\BlueJ\lib\bluejcore.jar;C:\Program Files (x86)\BlueJ\lib\junit-4.8.2.jar;H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster
+-d
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\doc
+-encoding
+windows-1252
+-charset
+windows-1252
+-docletpath
+C:\Program Files (x86)\BlueJ\lib\bjdoclet.jar
+-doclet
+bluej.doclet.doclets.formats.html.HtmlDoclet
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java
+<---- end of javadoc command ---->
+Loading source file H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java...
+Constructing Javadoc information...
+Standard Doclet version 1.7.0_10
+Building tree for all the packages and classes...
+Generating H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\doc\Zeichenfenster.html...
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:332: warning - @param argument "x1,y1" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:332: warning - @param argument "x2,y2" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:332: warning - @param argument "x3,y3" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:316: warning - @param argument "x1,y1" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:316: warning - @param argument "x2,y2" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:316: warning - @param argument "x3,y3" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:268: warning - @param argument "xPos,yPos" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:268: warning - @param argument "breite," is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:253: warning - @param argument "xPos,yPos" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:253: warning - @param argument "breite," is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:347: warning - @param argument "x1,y1" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:347: warning - @param argument "x2,y2" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:347: warning - @param argument "x3,y3" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:282: warning - @param argument "xPos,yPos" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:282: warning - @param argument "breite," is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:302: warning - @param argument "x1,y1" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:302: warning - @param argument "x2,y2" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:302: warning - @param argument "x3,y3" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:239: warning - @param argument "xPos,yPos" is not a parameter name.
+H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\Zeichenfenster.java:239: warning - @param argument "breite," is not a parameter name.
+Generating H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\doc\package-frame.html...
+Generating H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\doc\package-summary.html...
+Generating H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\doc\constant-values.html...
+Building index for all the packages and classes...
+Building index for all classes...
+Generating H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\doc\allclasses-frame.html...
+Generating H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\doc\allclasses-noframe.html...
+Generating H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\doc\index.html...
+Generating H:\Jo-Stick\INFO\Info_HÖFLER\Info_10_Skript_Höfler\Info_10_Bluej_Projekte_und_Arbeitsblätter\klasse_ Zeichenfenster\doc\stylesheet.css...
+20 warnings
