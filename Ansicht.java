@@ -107,13 +107,13 @@ private static String ladeDatei(String datName) {
                 g.drawImage(gegnerImages.get(i),gegner.get(i).getX(), gegner.get(i).getY(), screenHeight/(screenHeight/gegner.get(i).getLength()), screenHeight/(screenHeight/gegner.get(i).getLength()), this);
             }
             try{
-                Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("JURASSIC.TTF"));
+                Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("PressStart2P.ttf"));
                 font=font.deriveFont(16F);
                 g.setFont(font);
             }catch(Exception e){
                 e.printStackTrace();
             }
-            g.setColor(Color.RED);
+            
             if(hit){
                 if(spielerHit){
                     Image explosion1=zeugs.getImage("explosion1.png");
@@ -248,8 +248,8 @@ private static String ladeDatei(String datName) {
                 g.drawImage(herz1, (int) (screenHeight/0.902203), (int) (screenHeight/1.163163), this);
             }else{
                 try{
-                    Font bigFont=Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("JURASSIC.TTF"));
-                    bigFont=bigFont.deriveFont(100F);
+                    Font bigFont=Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("PressStart2P.ttf"));
+                    bigFont=bigFont.deriveFont(85F);
                     g.setFont(bigFont);
                 }catch(Exception e){
                     e.printStackTrace();

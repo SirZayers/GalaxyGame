@@ -64,6 +64,7 @@ public class Steuerung implements KeyListener{
         timeStart=(int) System.currentTimeMillis();
         maxGegner = 10;
         shouldGegnerSpawn = true;
+        waveCounter = 1;
         try{
             Font font=Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("starvader.ttf"));
             font=font.deriveFont(30F);
@@ -223,15 +224,8 @@ public class Steuerung implements KeyListener{
     }
 
     public void detectHitbox(){
-        for(int t=0;t<geschoss.size()-1;t++){
-            if(geschoss.get(t).getX()<0 || geschoss.get(t).getY()<0){
-                geschoss.set(t, geschoss.get(t+1));
-                geschoss.remove(geschoss.size()-1);
-            }
-            
-        }
+
         for(int i=0;i<geschoss.size();i++){
-            
             if(geschoss.get(i).getKey()==0){
                 for(int z=0;z<gegner.size();z++){
                     if(geschoss.get(i).getX()>=sos.getX() &&geschoss.get(i).getX()<=sos.getX()+sos.getLength() && geschoss.get(i).getY()<=sos.getY()+sos.getLength() && geschoss.get(i).getY()>=sos.getY())
@@ -240,8 +234,8 @@ public class Steuerung implements KeyListener{
                         if(hitsSpieler>0){
                             hitsSpieler--;
                         }
-                        score++;
-                        score++;
+                        score += 50;
+                        
                         ansicht.setScore(score);
                         int xk=sos.getX();
                         int yk=sos.getY();
@@ -280,7 +274,7 @@ public class Steuerung implements KeyListener{
                         int xk=gegner.get(z).getX();
                         int yk=gegner.get(z).getY();
                         gegner.get(z).stopMove();
-                        score++;
+                        score += 20;
                         ansicht.setScore(score);
                         Timer t1=new Timer();
                         ansicht.setHit(true, gegner.get(z).getX(), gegner.get(z).getY(), 1, false);
@@ -422,6 +416,8 @@ public class Steuerung implements KeyListener{
                     if(maxGegner==gegnerNumber){
                         shouldGegnerSpawn = false;
                         if(gegner.size()==0){
+                            score += waveCounter * 1000;
+                            waveCounter++;
                             maxGegner=maxGegner+2;
                             shouldGegnerSpawn=true;
                             gegnerNumber=0;
