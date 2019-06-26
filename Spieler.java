@@ -1,15 +1,18 @@
 import java.util.*;
-public class Spieler {
+
+public class Spieler  {
     private ArrayList<Beobachter> beobachter;
     private int x;
     private int y;
     private int length;
     private int speed;
+    private int screenHeight;
 
-    public Spieler(int schnell, int l) {
+    public Spieler(int schnell, int l,int z) {
         beobachter=new ArrayList<Beobachter>();
-        y=900;
-        x=512;
+       screenHeight=z;
+        y=(int)(z*0.85);
+        x=(int)(z*0.85);
         length=l;
         speed=schnell;
 
@@ -20,10 +23,10 @@ public class Spieler {
     }
 
     public void goRight()
-    {if(x<955){x=x+speed;}}
+    {if(x<(int)(screenHeight*0.937)){x=x+speed;}}
 
     public void goLeft()
-    {if(x>5)
+    {if(x>(int)(screenHeight*0.01))
         {x=x-speed;}
     }
 

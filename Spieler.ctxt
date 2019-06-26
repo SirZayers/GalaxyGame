@@ -1,6 +1,6 @@
 #BlueJ class context
-comment0.params=schnell\ l
-comment0.target=Spieler(int,\ int)
+comment0.params=schnell\ l\ z
+comment0.target=Spieler(int,\ int,\ int)
 comment1.params=b
 comment1.target=void\ anmelden(Beobachter)
 comment10.params=s

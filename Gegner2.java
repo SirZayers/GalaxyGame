@@ -1,5 +1,5 @@
 import java.util.*;
-
+import java.awt.*;
 public class Gegner2 implements Gegner{
     
     private int speedX, speedY, posX, posY, length, bulletFreq, maxCount, mCounter, bCounter, state;
@@ -7,15 +7,16 @@ public class Gegner2 implements Gegner{
     private int key;
     private boolean shoot;
     private Random rand;
-    
+    private int screenHeight;
     public Gegner2(int x, int y, int bf, int mf, int l) {
         rand = new Random();
         shoot = false;
         posX = x;
         posY = y;
         length = l;
+        screenHeight= (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
         speedX = 0;
-        speedY = 5;
+        speedY =(int) (screenHeight/204.8);
         if(mf != 0){maxCount = mf;}
         else{maxCount = rand.nextInt(150) + 50;}
         mCounter = maxCount;
@@ -87,7 +88,7 @@ public class Gegner2 implements Gegner{
             else if(state == 1){
                 state = 2;
                 speedX = 0;
-                speedY = 5;
+                speedY = (int) (screenHeight/204.8);
             }
             else if(state == 2){
                 state = 3;
@@ -97,7 +98,7 @@ public class Gegner2 implements Gegner{
             else{
                 state = 0;
                 speedX = 0;
-                speedY = 5;
+                speedY = (int) (screenHeight/204.8);
             }
         }
         else{
