@@ -30,7 +30,7 @@ public class Steuerung implements KeyListener{
     private Button newGame;
     private Action actionlistener;
     private final int timeStart;
-    private int gegnerNumber, BossNumber;
+    private int gegnerNumber, ShouldBossSpawn ;
     private int waveCounter;
     private boolean shouldGegnerSpawn;
     private int maxGegner, start, bg,score;
@@ -64,7 +64,8 @@ public class Steuerung implements KeyListener{
         timeStart=(int) System.currentTimeMillis();
         maxGegner = 10;
         shouldGegnerSpawn = true;
-        BossNumber = 0;
+        waveCounter = 1;
+        ShouldBossSpawn = 10;
         try{
             Font font=Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("starvader.ttf"));
             font=font.deriveFont(30F);
@@ -234,8 +235,8 @@ public class Steuerung implements KeyListener{
                         if(hitsSpieler>0){
                             hitsSpieler--;
                         }
-                        score++;
-                        score++;
+                        score += 50;
+                        
                         ansicht.setScore(score);
                         int xk=sos.getX();
                         int yk=sos.getY();
@@ -274,7 +275,7 @@ public class Steuerung implements KeyListener{
                         int xk=gegner.get(z).getX();
                         int yk=gegner.get(z).getY();
                         gegner.get(z).stopMove();
-                        score++;
+                        score += 20;
                         ansicht.setScore(score);
                         Timer t1=new Timer();
                         ansicht.setHit(true, gegner.get(z).getX(), gegner.get(z).getY(), 1, false);
@@ -382,9 +383,19 @@ public class Steuerung implements KeyListener{
                     }
                 }
             }
+             if(geschoss.get(i).getY()>screenHeight || geschoss.get(i).getY()<0){
+                for(int k=i;k<geschoss.size()-1;k++){
+                    geschoss.set(k, geschoss.get(k+1));
+                }
+                geschoss.remove(geschoss.size()-1);
+                i--;
+            }
 
         }
     }
+
+        
+    
 
     public void setGegnerSpawn(){
         //setzt einen Timer, der festlegt, wann neue Gegner spawnen sollen (nachfolgend genauer erklärt)
@@ -394,6 +405,7 @@ public class Steuerung implements KeyListener{
                 public void run(){//alles in diesem Block run() wird in der oben festgelegten Periode ausgeführt, damit ein neuer Gegner gespawnt wird
                     int x=ThreadLocalRandom.current().nextInt((int)(screenHeight*0.039), (int)(screenHeight*0.78125)); //hier wird zufällig der x-Wert des Gegners festgelegt
                     int y=-64;
+                    int z=500;
                     /*
                      * Der nachfolgende Teil mit der time Variable ist mein Lösungsvorschlag dafür, dass mit der Zeit mehr Gegner spawnen sollen,
                      * ist dementsprechend unwichtig bzw. kann durch andere Wege ersetzt werden, ich habe ihn nur aufgenommen, weil das hier mein 
@@ -416,6 +428,15 @@ public class Steuerung implements KeyListener{
                     if(maxGegner==gegnerNumber){
                         shouldGegnerSpawn = false;
                         if(gegner.size()==0){
+                            score += waveCounter * 1000;
+                            waveCounter++;
+                            ansicht.setWaveCounter(waveCounter);
+                            ansicht.setShowWave(true);
+                            try{Thread.sleep(3500);}
+                            catch(Exception e){e.printStackTrace();}
+                            ansicht.setShowWave(false);
+                            try{Thread.sleep(1500);}
+                            catch(Exception e){e.printStackTrace();}
                             maxGegner=maxGegner+2;
                             shouldGegnerSpawn=true;
                             gegnerNumber=0;
@@ -424,11 +445,11 @@ public class Steuerung implements KeyListener{
                     if(shouldGegnerSpawn){
                         addGegner(new Gegner2(x, y, 30, 45, (int)(screenHeight*0.0625))); //hier wird der neue Gegner mit den oben zufällig bestimmten x- und y-Werten und der festgelegten bf und mf erzeugt.
                         gegnerNumber++;
-                        BossNumber++;
+                        ShouldBossSpawn--;
                     }
-                    if(BossNumber==10){
-                        addGegner(new Gegner3(x, y, 5, 20, (int)(screenHeight*0.0625)));
-                        BossNumber = 5;
+                    if(ShouldBossSpawn < 1){
+                        addGegner(new Gegner3(z, y, 8, 20, (int)(screenHeight*0.0625)));
+                        ShouldBossSpawn = 10 - waveCounter;
                     }
 
                     currentTime= (int) System.currentTimeMillis();
@@ -440,7 +461,8 @@ public class Steuerung implements KeyListener{
         if(ge.getKey()==1){
             geschoss.add(new Geschoss(ge.getX()+30, ge.getY()+ge.getLength(),(int) (-(screenHeight/170.666)), 1));
             ge.setShoot(false);
-        }else if(ge.getKey()==2){
+        }
+                if(ge.getKey()==2){
             geschoss.add(new Geschoss(ge.getX()+30, ge.getY()+ge.getLength(),(int) (-(screenHeight/170.666)), 2));
             ge.setShoot(false);
         }

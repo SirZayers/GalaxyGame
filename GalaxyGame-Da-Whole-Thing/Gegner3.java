@@ -82,7 +82,7 @@ public class Gegner3 implements Gegner{
             mCounter = maxCount;
             if(state == 0){
                 state = 1;
-                speedX = 10;
+                speedX = 15;
                 speedY = 0;
             }
             else if(state == 1){
@@ -92,7 +92,7 @@ public class Gegner3 implements Gegner{
             }
             else if(state == 2){
                 state = 3;
-                speedX = -10;
+                speedX = -15;
                 speedY = 0;
             }
             else{

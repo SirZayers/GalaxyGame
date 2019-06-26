@@ -41,7 +41,7 @@ public class Geschoss{
         return SizeY;
     }
 
-    public int getSpeed(){ 
+    public int getSpeed(){
         return Speed;
     }
 

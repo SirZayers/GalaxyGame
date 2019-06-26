@@ -11,7 +11,7 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
     private ArrayList<Gegner> gegner;
     private ArrayList<Geschoss> geschoss;
     private ArrayList<Image> gegnerImages, geschossImages;
-    private boolean hit, spielerHit;
+    private boolean hit, spielerHit, showWave;
     private int xHit, yHit, counter;
     private int kills, health;
     private int backgroundMoving;
@@ -19,6 +19,7 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
     private Rettungsschiff rettungsschiff;
     private int timeSOS,start,bg , score;
     private int screenHeight, screenWidth;
+    private int waveCounter;
     public Ansicht(Spieler q, ArrayList<Gegner> g, ArrayList<Geschoss> ges,  Rettungsschiff r,int s){
         rettungsschiff=r;
         gegnerImages=new ArrayList<Image>();
@@ -42,6 +43,7 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         yHit=0;
         kills=0;
         health=3;
+        waveCounter = 1;
     }
 private static String ladeDatei(String datName) {
         String l=null;
@@ -97,10 +99,9 @@ private static String ladeDatei(String datName) {
             }
             for(int i=0;i<gegner.size();i++){
                 if(gegner.get(i).getKey()==1){
-                    gegnerImages.add(zeugs.getImage("gegner.png"));
-                } 
-                else if(gegner.get(i).getKey()==2){
-                    gegnerImages.add(zeugs.getImage("Gegner_Gruen.png"));
+                    gegnerImages.add(i, zeugs.getImage("gegner.png"));
+                }else if(gegner.get(i).getKey()==2){
+                    gegnerImages.add(i, zeugs.getImage("Gegner_Grün.png"));
                 }
             }
             
@@ -110,13 +111,13 @@ private static String ladeDatei(String datName) {
                 g.drawImage(gegnerImages.get(i),gegner.get(i).getX(), gegner.get(i).getY(), screenHeight/(screenHeight/gegner.get(i).getLength()), screenHeight/(screenHeight/gegner.get(i).getLength()), this);
             }
             try{
-                Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("JURASSIC.TTF"));
+                Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("PressStart2P.ttf"));
                 font=font.deriveFont(16F);
                 g.setFont(font);
             }catch(Exception e){
                 e.printStackTrace();
             }
-            g.setColor(Color.RED);
+            
             if(hit){
                 if(spielerHit){
                     Image explosion1=zeugs.getImage("explosion1.png");
@@ -159,7 +160,7 @@ private static String ladeDatei(String datName) {
                     geschossImages.add(i, zeugs.getImage("Blaues_Geschoss.png"));
                 }else if(geschoss.get(i).getKey()==1){
                     geschossImages.add(i, zeugs.getImage("Rotes_Geschoss.png"));
-                } else if(geschoss.get(i).getKey()==2){
+                }else if(geschoss.get(i).getKey()==2){
                     geschossImages.add(i, zeugs.getImage("Grünes_Geschoss.png"));
                 }
             }
@@ -253,13 +254,23 @@ private static String ladeDatei(String datName) {
                 g.drawImage(herz1, (int) (screenHeight/0.902203), (int) (screenHeight/1.163163), this);
             }else{
                 try{
-                    Font bigFont=Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("JURASSIC.TTF"));
-                    bigFont=bigFont.deriveFont(100F);
+                    Font bigFont=Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("PressStart2P.ttf"));
+                    bigFont=bigFont.deriveFont(85F);
                     g.setFont(bigFont);
                 }catch(Exception e){
                     e.printStackTrace();
                 }
                 g.drawString("GAME OVER",(int) (screenHeight*0.1), (int) (screenHeight*0.4));
+            }
+            if(showWave == true){
+                try{
+                    Font bigFont=Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("PressStart2P.ttf"));
+                    bigFont=bigFont.deriveFont(85F);
+                    g.setFont(bigFont);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                g.drawString("Wave "+waveCounter,(int) (screenHeight *0.3), (int) (screenHeight * 0.4));
             }
         }
         else if(start==0)
@@ -335,5 +346,13 @@ private static String ladeDatei(String datName) {
         blackBackground=0;
         kills=0;
         spieler.setX(512);
+    }
+    
+    public void setShowWave(boolean b){
+        showWave = b;
+    }
+    
+    public void setWaveCounter(int i){
+        waveCounter = i;
     }
 }
