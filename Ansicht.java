@@ -11,7 +11,7 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
     private ArrayList<Gegner> gegner;
     private ArrayList<Geschoss> geschoss;
     private ArrayList<Image> gegnerImages, geschossImages;
-    private boolean hit, spielerHit;
+    private boolean hit, spielerHit, showWave;
     private int xHit, yHit, counter;
     private int kills, health;
     private int backgroundMoving;
@@ -19,6 +19,7 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
     private Rettungsschiff rettungsschiff;
     private int timeSOS,start,bg , score;
     private int screenHeight, screenWidth;
+    private int waveCounter;
     public Ansicht(Spieler q, ArrayList<Gegner> g, ArrayList<Geschoss> ges,  Rettungsschiff r,int s){
         rettungsschiff=r;
         gegnerImages=new ArrayList<Image>();
@@ -42,6 +43,7 @@ public class Ansicht extends javax.swing.JComponent implements Beobachter{
         yHit=0;
         kills=0;
         health=3;
+        waveCounter = 1;
     }
 private static String ladeDatei(String datName) {
         String l=null;
@@ -256,6 +258,16 @@ private static String ladeDatei(String datName) {
                 }
                 g.drawString("GAME OVER",(int) (screenHeight*0.1), (int) (screenHeight*0.4));
             }
+            if(showWave == true){
+                try{
+                    Font bigFont=Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("PressStart2P.ttf"));
+                    bigFont=bigFont.deriveFont(85F);
+                    g.setFont(bigFont);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                g.drawString("Wave "+waveCounter,(int) (screenHeight *0.3), (int) (screenHeight * 0.4));
+            }
         }
         else if(start==0)
         {Image sat=zeugs.getImage("start.png");
@@ -267,7 +279,8 @@ private static String ladeDatei(String datName) {
             {g.drawImage(sap, (int) (screenHeight*0.52),(int) (screenHeight*0.7), (int) (screenHeight*0.1),(int) (screenHeight*0.1), this);}
             else{g.drawImage(sap, (int) (screenHeight*0.9), (int) (screenHeight*0.7), (int) (screenHeight*0.1),(int) (screenHeight*0.1), this);}
 
-        } else if(start==2){
+        }
+        else if (start==2){
         Image sat=zeugs.getImage("score.png");
             g.drawImage(sat, 0, 0,(int) (screenHeight*1.25), screenHeight, this);
            try{
@@ -329,5 +342,13 @@ private static String ladeDatei(String datName) {
         blackBackground=0;
         kills=0;
         spieler.setX(512);
+    }
+    
+    public void setShowWave(boolean b){
+        showWave = b;
+    }
+    
+    public void setWaveCounter(int i){
+        waveCounter = i;
     }
 }

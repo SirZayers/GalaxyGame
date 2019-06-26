@@ -149,7 +149,7 @@ public class Steuerung implements KeyListener{
                 try {
                     in.close();
                 } catch (IOException e) {
-            }
+                }
         }
         return l;
     }
@@ -171,12 +171,9 @@ public class Steuerung implements KeyListener{
             }
             else if(e.getKeyCode()==KeyEvent.VK_ENTER){
                 start=0;
-                newGame.setSize(0, 0);
-                fenster.remove(newGame);
                 ansicht.setStart(0);
                 score=0;
                 ansicht.setScore(0);
-                setNewGame();
             }
 
         }else if (start==0){
@@ -238,7 +235,7 @@ public class Steuerung implements KeyListener{
                             hitsSpieler--;
                         }
                         score += 50;
-
+                        
                         ansicht.setScore(score);
                         int xk=sos.getX();
                         int yk=sos.getY();
@@ -328,6 +325,7 @@ public class Steuerung implements KeyListener{
                             Timer t1=new Timer();
                             ansicht.decreaseHealth();
                             spieler.stopMove();
+                            
 
                             ansicht.setHit(true, xk, yk, 1, true);
                             t1.schedule(new TimerTask(){
@@ -376,15 +374,15 @@ public class Steuerung implements KeyListener{
                             int h = Integer.parseInt(numberString);
                             if(h<score)
                             {
-                                storage(d);
-                            }
-                            score=0;
-                            ansicht.setScore(0);
+                            storage(d);
+                        }
+                        score=0;
+                        ansicht.setScore(0);
                         }
                     }
                 }
             }
-            if(geschoss.get(i).getY()>screenHeight || geschoss.get(i).getY()<0){
+             if(geschoss.get(i).getY()>screenHeight || geschoss.get(i).getY()<0){
                 for(int k=i;k<geschoss.size()-1;k++){
                     geschoss.set(k, geschoss.get(k+1));
                 }
@@ -395,7 +393,9 @@ public class Steuerung implements KeyListener{
         }
     }
 
+        
     
+
     public void setGegnerSpawn(){
         //setzt einen Timer, der festlegt, wann neue Gegner spawnen sollen (nachfolgend genauer erklärt)
         Timer gegnerSpawn=new Timer();
@@ -428,6 +428,13 @@ public class Steuerung implements KeyListener{
                         if(gegner.size()==0){
                             score += waveCounter * 1000;
                             waveCounter++;
+                            ansicht.setWaveCounter(waveCounter);
+                            ansicht.setShowWave(true);
+                            try{Thread.sleep(3500);}
+                            catch(Exception e){e.printStackTrace();}
+                            ansicht.setShowWave(false);
+                            try{Thread.sleep(1500);}
+                            catch(Exception e){e.printStackTrace();}
                             maxGegner=maxGegner+2;
                             shouldGegnerSpawn=true;
                             gegnerNumber=0;
@@ -468,22 +475,17 @@ public class Steuerung implements KeyListener{
                 }
             }).start();
     }
-
-    public void setNewGame(){
-        hitsSpieler=0;
-        ansicht.remove(newGame);
-        ansicht.setNewGame();
-        geschoss.clear();
-        gegner.clear();
-        spieler.setSpeed(5);
-        fenster.requestFocus();
-        ansicht.repaint();
-    }
-    
     private class Action implements ActionListener{
         public void actionPerformed(ActionEvent e){
             if(e.getSource()==newGame){
-                setNewGame();
+                hitsSpieler=0;
+                ansicht.remove(newGame);
+                ansicht.setNewGame();
+                geschoss.clear();
+                gegner.clear();
+                spieler.setSpeed(5);
+                fenster.requestFocus();
+                ansicht.repaint();
             }
         }
     }
