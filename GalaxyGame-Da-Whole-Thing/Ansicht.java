@@ -99,8 +99,8 @@ private static String ladeDatei(String datName) {
                 if(gegner.get(i).getKey()==1){
                     gegnerImages.add(zeugs.getImage("gegner.png"));
                 } 
-                if(gegner.get(i).getKey()==1){
-                    gegnerImages.add(zeugs.getImage("Gegner_Grün.png"));
+                else if(gegner.get(i).getKey()==2){
+                    gegnerImages.add(zeugs.getImage("Gegner_Gruen.png"));
                 }
             }
             

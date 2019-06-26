@@ -30,7 +30,7 @@ public class Steuerung implements KeyListener{
     private Button newGame;
     private Action actionlistener;
     private final int timeStart;
-    private int gegnerNumber;
+    private int gegnerNumber, BossNumber;
     private int waveCounter;
     private boolean shouldGegnerSpawn;
     private int maxGegner, start, bg,score;
@@ -64,6 +64,7 @@ public class Steuerung implements KeyListener{
         timeStart=(int) System.currentTimeMillis();
         maxGegner = 10;
         shouldGegnerSpawn = true;
+        BossNumber = 0;
         try{
             Font font=Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("starvader.ttf"));
             font=font.deriveFont(30F);
@@ -423,7 +424,11 @@ public class Steuerung implements KeyListener{
                     if(shouldGegnerSpawn){
                         addGegner(new Gegner2(x, y, 30, 45, (int)(screenHeight*0.0625))); //hier wird der neue Gegner mit den oben zufällig bestimmten x- und y-Werten und der festgelegten bf und mf erzeugt.
                         gegnerNumber++;
-                        addGegner(new Gegner3(x, y, 20, 20, (int)(screenHeight*0.0625)));
+                        BossNumber++;
+                    }
+                    if(BossNumber==10){
+                        addGegner(new Gegner3(x, y, 5, 20, (int)(screenHeight*0.0625)));
+                        BossNumber = 5;
                     }
 
                     currentTime= (int) System.currentTimeMillis();
@@ -436,7 +441,7 @@ public class Steuerung implements KeyListener{
             geschoss.add(new Geschoss(ge.getX()+30, ge.getY()+ge.getLength(),(int) (-(screenHeight/170.666)), 1));
             ge.setShoot(false);
         }else if(ge.getKey()==2){
-            geschoss.add(new Geschoss(ge.getX()+30, ge.getY()+ge.getLength(),(int) (-(screenHeight/170.666)), 1));
+            geschoss.add(new Geschoss(ge.getX()+30, ge.getY()+ge.getLength(),(int) (-(screenHeight/170.666)), 2));
             ge.setShoot(false);
         }
 
