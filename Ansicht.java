@@ -86,7 +86,7 @@ private static String ladeDatei(String datName) {
             Image backgroundIMG=zeugs.getImage("background.png");
             Image backgroundIMG2=zeugs.getImage("background2.png");
             String s;
-            s="Score:"+score;
+            s=""+score;
             
             if(backgroundMoving<screenHeight){
 
@@ -172,9 +172,11 @@ private static String ladeDatei(String datName) {
             g.drawImage(rakete,(int) (screenHeight/1.029146),(int) (screenHeight/1.462857),(int) (screenHeight/3.6571428), (int) (screenHeight/3.6571428), this);
             g.setColor(Color.RED);
             g.drawString(s,(int) (screenHeight*1.02), (int) (screenHeight*0.07));
+            g.drawString("Score:",(int) (screenHeight*1.02), (int) (screenHeight*0.03));
             g.setColor(Color.RED);
-            String t="Highscore:"+reade();
+            String t=reade();
             g.drawString(t,(int) (screenHeight*1.02), (int) (screenHeight*0.17));
+            g.drawString("Highscore:",(int) (screenHeight*1.02), (int) (screenHeight*0.13));
             try{
                 Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("STARVADER.TTF"));
                 font=font.deriveFont(16F);
